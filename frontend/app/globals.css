@@ -306,3 +306,25 @@ body {
     linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
   background-size: 40px 40px;
 }
+
+/* ===== Mobile / PWA Utilities ===== */
+
+/* Safe area for phones with notches/home indicators */
+.pb-safe {
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+/* Bottom nav spacing */
+.mb-bottom-nav {
+  margin-bottom: 70px;
+}
+
+/* Mobile-first touch targets & adjustments */
+@media (max-width: 768px) {
+  .glass-card {
+    border-radius: 12px;
+  }
+  .glass-input {
+    font-size: 16px; /* Prevents iOS zoom on focus */
+  }
+}
