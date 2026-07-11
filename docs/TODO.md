@@ -38,11 +38,14 @@
 - [x] Intent transitions: parking → gate → seat → facility → exit (NextIntent component + /api/navigation/next-intent)
 - [x] Frontend API types: NavigationResponse updated with reason/benefit/tradeoff/confidence/alternatives/path
 
-## Phase 12 — Deployment Hardening
+## Phase 12 — Deployment Hardening ✓
 
-- [ ] Vercel configuration
-- [ ] Render configuration
+- [x] Vercel configuration (`vercel.json`, `next.config.ts`)
+- [x] Render configuration (`render.yaml`, `requirements.txt`, `runtime.txt`)
+- [x] Bundle optimization — static assets ~1.7MB (<5MB)
+- [x] Error boundaries — graceful fallbacks
+- [x] Project README (`README.md`)
+- [ ] Deploy to Vercel (user action required)
+- [ ] Deploy to Render (user action required)
 - [ ] PWA verification, Lighthouse 90+
-- [ ] Bundle optimization <5MB
-- [ ] Error boundaries, graceful fallbacks
-- [ ] Competition deliverables (README, blog post, LinkedIn, demo video, presentation)
+- [ ] Competition deliverables (blog post, LinkedIn, demo video, presentation)

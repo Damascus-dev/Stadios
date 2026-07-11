@@ -18,26 +18,24 @@
 
 ## Current Goal
 
-Phase 12 -- Deployment Hardening
+Deploy to Vercel + Render, competition deliverables
 
 ---
 
 ## Completed This Session
 
-- Phase 11 complete: AICard integrated on both pages, backend route alternatives, dynamic reroute (30s polling), intent transitions (next-intent endpoint + UI)
+- Phase 12 deployment hardening: Vercel config, Render config, CORS production, bundle optimization (~1.7MB), project README, requirements.txt, .env.example
+- All configs committed and pushed to GitHub
 
 ---
 
 ## Active Tasks
 
-- [ ] Intent Graph service (state machine) — can be handled by existing intent classifier
-- [ ] POST /api/reroute — current route recalculates on new navigate call
-- [ ] Vercel configuration
-- [ ] Render configuration
+- [ ] Deploy frontend to Vercel
+- [ ] Deploy backend to Render
+- [ ] Set Render API URL in Vercel env vars
 - [ ] PWA verification, Lighthouse 90+
-- [ ] Bundle optimization <5MB
-- [ ] Error boundaries, graceful fallbacks
-- [ ] Competition deliverables (README, blog post, LinkedIn, demo video, presentation)
+- [ ] Competition deliverables (blog post, LinkedIn, demo video, presentation)
 
 ---
 
