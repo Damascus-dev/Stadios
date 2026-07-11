@@ -1,3 +1,6 @@
+# IMPORTANT: Root Directory must be (empty) — NOT "backend".
+# The Python code imports from agents/, schemas/, simulation/, stadium/
+# which are siblings of backend/, so repo root must be the working directory.
 services:
   - type: web
     name: stadiumos-api

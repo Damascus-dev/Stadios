@@ -82,7 +82,10 @@ Set environment variable: `NEXT_PUBLIC_API_URL=https://stadiumos-api.onrender.co
 
 ### Backend (Render)
 
-Connect repo, service starts at `uvicorn backend.app.main:app --host 0.0.0.0 --port $PORT`.
+1. Create a **New Web Service** → connect your GitHub repo
+2. **Root Directory**: leave **empty** (repo root) — the code imports from `agents/`, `schemas/`, etc. which are siblings of `backend/`
+3. **Build Command**: `pip install -r requirements.txt`
+4. **Start Command**: `uvicorn backend.app.main:app --host 0.0.0.0 --port $PORT`
 
 Required env vars: `PYTHONPATH=.`, `JWT_SECRET`, `DEEPSEEK_API_KEY` or `GEMINI_API_KEY`.
 
