@@ -20,3 +20,7 @@ services:
         sync: false
       - key: JWT_SECRET
         generateValue: true
+      - key: FRONTEND_URL
+        value: https://stadiumos-navigator.vercel.app
+      - key: PRODUCTION
+        value: "true"

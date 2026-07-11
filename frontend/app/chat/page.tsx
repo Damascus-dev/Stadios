@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useRef, useEffect } from 'react';
-import { queryAgent } from '@/lib/api';
+import { queryAgent, API_BASE } from '@/lib/api';
 
 type Agent = 'Navigation' | 'Operations' | 'Accessibility';
 
@@ -67,7 +67,7 @@ export default function ChatPage() {
 
     try {
       const agentType = activeAgent.toLowerCase();
-      console.log("Sending message...", { agentType, query: text, url: `http://localhost:8000/api/agents/${agentType}` });
+      console.log("Sending message...", { agentType, query: text, url: `${API_BASE}/api/agents/${agentType}` });
       const response = await queryAgent(agentType, text);
       const agentMsg: Message = {
         id: Date.now() + 1,
@@ -85,7 +85,7 @@ export default function ChatPage() {
         id: Date.now() + 1,
         role: 'agent',
         agent: activeAgent,
-        text: 'Sorry, I encountered an error processing your request. Please check that the backend is running (http://localhost:8000) and try again.',
+        text: `Sorry, I encountered an error processing your request. Please check that the backend is running (${API_BASE}) and try again.`,
         time: new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: false }),
       };
       setMessages((prev) => [...prev, errorMsg]);
