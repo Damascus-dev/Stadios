@@ -218,8 +218,7 @@ export async function getMe(): Promise<UserProfile> {
 }
 
 export async function getDashboard(): Promise<DashboardData> {
-  const data = await fetchJSON<{ dashboard: DashboardData }>(`${API_BASE}/api/dashboard/`);
-  return data.dashboard;
+  return fetchJSON<DashboardData>(`${API_BASE}/api/dashboard/`);
 }
 
 export async function getNavigationRoute(

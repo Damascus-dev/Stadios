@@ -144,9 +144,9 @@ export default function DashboardPage() {
   }
 
   const d = data;
-  const zones = d.crowd_heat?.zones || [];
-  const alerts = d.active_alerts?.alerts || [];
-  const recs = d.ai_recommendations || [];
+  const zones = data?.crowd_heat?.zones ?? [];
+  const alerts = data?.active_alerts?.alerts ?? [];
+  const recs = data?.ai_recommendations ?? [];
   const vol = d.volunteer_status;
   const inc = d.incident_count;
   const trans = d.transportation;
