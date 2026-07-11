@@ -21,6 +21,6 @@ services:
       - key: JWT_SECRET
         generateValue: true
       - key: FRONTEND_URL
-        value: https://stadiumos-navigator.vercel.app
-      - key: PRODUCTION
+        value: https://stadiumos-ai-swart.vercel.app
+      - key: ENABLE_DOCS
         value: "true"

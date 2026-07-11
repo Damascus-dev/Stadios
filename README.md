@@ -4,7 +4,7 @@
 
 ## Demo
 
-[Live Frontend](https://stadiumos-navigator.vercel.app) | [API](https://stadiumos-api.onrender.com/api/health)
+[Live Frontend](https://stadiumos-ai-swart.vercel.app) | [API](https://stadiumos-ai-4drd.onrender.com/api/health) | [Swagger](https://stadiumos-ai-4drd.onrender.com/docs)
 
 Demo login: use any email, OTP code `123456`, select role "Fan".
 
@@ -78,7 +78,7 @@ Open http://localhost:3000
 npx vercel --prod
 ```
 
-Set environment variable: `NEXT_PUBLIC_API_URL=https://stadiumos-api.onrender.com`
+Set environment variable: `NEXT_PUBLIC_API_URL=https://stadiumos-ai-4drd.onrender.com`
 
 ### Backend (Render)
 

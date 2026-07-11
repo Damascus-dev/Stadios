@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { API_BASE } from "@/lib/api";
 import { useStadiumStore } from "@/stores/stadiumStore";
 
 interface IntentSuggestion {
@@ -59,7 +60,6 @@ export default function NextIntent() {
       : lastStep.instruction.includes("Parking") || lastStep.instruction.includes("parking") ? "parking"
       : "concourse";
 
-    const API_BASE = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
     fetch(`${API_BASE}/api/navigation/next-intent`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },

@@ -1,15 +1,14 @@
 import { create } from "zustand";
+import { API_BASE } from "@/lib/api";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 async function getStadium(): Promise<any> {
-  const API_BASE = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
   const res = await fetch(`${API_BASE}/api/stadium`);
   return res.json();
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 async function getGraph(): Promise<any> {
-  const API_BASE = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
   const res = await fetch(`${API_BASE}/api/graph`);
   return res.json();
 }
@@ -136,7 +135,6 @@ export const useStadiumStore = create<StadiumState>((set, get) => ({
     ...initialRouteState,
     navigateTo: async (startId: string, destId: string) => {
       const state = get();
-      const API_BASE = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
       set((s) => ({ route: { ...s.route, routeLoading: true, routeError: null } }));
       try {
         const res = await fetch(`${API_BASE}/api/navigation/route`, {

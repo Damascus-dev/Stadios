@@ -6,7 +6,7 @@
   "rewrites": [
     {
       "source": "/api/:path*",
-      "destination": "https://stadiumos-api.onrender.com/api/:path*"
+      "destination": "https://stadiumos-ai-4drd.onrender.com/api/:path*"
     }
   ]
 }
