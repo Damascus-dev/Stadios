@@ -2,7 +2,7 @@
   "name": "StadiumOS AI",
   "short_name": "StadiumOS",
   "description": "AI Operating System for FIFA World Cup 2026 Stadium Operations",
-  "start_url": "/dashboard",
+  "start_url": "/",
   "display": "standalone",
   "background_color": "#0a0e1a",
   "theme_color": "#0a0e1a",

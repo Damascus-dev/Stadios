@@ -21,7 +21,8 @@ app = FastAPI(
     version="0.1.0",
 )
 
-# CORS for frontend dev server
+# CORS
+FRONTEND_URL = os.getenv("FRONTEND_URL", "http://localhost:3000")
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
@@ -29,6 +30,8 @@ app.add_middleware(
         "http://localhost:3001",
         "http://192.168.0.101:3000",
         "http://192.168.0.101:3001",
+        FRONTEND_URL,
+        "https://stadiumos-navigator.vercel.app",
     ],
     allow_credentials=True,
     allow_methods=["*"],

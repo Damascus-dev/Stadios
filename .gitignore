@@ -33,6 +33,9 @@ Thumbs.db
 *.egg-info/
 *.egg
 pip-log.txt
+.venv/
+backend/.venv/
+backend/stadiumos_backend.egg-info/
 
 # Testing
 coverage/

@@ -1,0 +1,12 @@
+{
+  "framework": "nextjs",
+  "installCommand": "cd frontend && npm ci",
+  "buildCommand": "cd frontend && npm run build",
+  "outputDirectory": "frontend/.next",
+  "rewrites": [
+    {
+      "source": "/api/:path*",
+      "destination": "https://stadiumos-api.onrender.com/api/:path*"
+    }
+  ]
+}
