@@ -1,6 +1,7 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
+import { queryAgent } from '@/lib/api';
 
 type Agent = 'Navigation' | 'Operations' | 'Accessibility';
 
@@ -38,10 +39,62 @@ const initialMessages: Record<Agent, Message[]> = {
 export default function ChatPage() {
   const [activeAgent, setActiveAgent] = useState<Agent>('Navigation');
   const [inputValue, setInputValue] = useState('');
-  const messages = initialMessages[activeAgent];
+  const [messages, setMessages] = useState(initialMessages[activeAgent]);
+  const [loading, setLoading] = useState(false);
+  const messagesEndRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    setMessages(initialMessages[activeAgent]);
+  }, [activeAgent]);
+
+  useEffect(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  }, [messages]);
+
+  const sendMessage = async () => {
+    const text = inputValue.trim();
+    if (!text || loading) return;
+    setInputValue('');
+
+    const userMsg: Message = {
+      id: Date.now(),
+      role: 'user',
+      text,
+      time: new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: false }),
+    };
+    setMessages((prev) => [...prev, userMsg]);
+    setLoading(true);
+
+    try {
+      const agentType = activeAgent.toLowerCase();
+      console.log("Sending message...", { agentType, query: text, url: `http://localhost:8000/api/agents/${agentType}` });
+      const response = await queryAgent(agentType, text);
+      const agentMsg: Message = {
+        id: Date.now() + 1,
+        role: 'agent',
+        agent: activeAgent,
+        text: response.response_text + (response.recommendations?.length
+          ? '\n\nRecommended actions:\n' + response.recommendations.map((r: string) => `• ${r}`).join('\n')
+          : ''),
+        time: new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: false }),
+      };
+      setMessages((prev) => [...prev, agentMsg]);
+    } catch (err) {
+      console.error("Chat API error:", err);
+      const errorMsg: Message = {
+        id: Date.now() + 1,
+        role: 'agent',
+        agent: activeAgent,
+        text: 'Sorry, I encountered an error processing your request. Please check that the backend is running (http://localhost:8000) and try again.',
+        time: new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: false }),
+      };
+      setMessages((prev) => [...prev, errorMsg]);
+    }
+    setLoading(false);
+  };
 
   return (
-    <div className="ml-[68px] min-h-screen bg-gradient-mesh flex flex-col">
+    <div className="md:ml-[68px] min-h-screen bg-gradient-mesh flex flex-col">
       {/* Header */}
       <header className="sticky top-0 z-40 glass-panel border-b border-white/[0.06] px-6 py-3">
         <div className="flex items-center justify-between">
@@ -111,8 +164,18 @@ export default function ChatPage() {
               </div>
             );
           })}
+          <div ref={messagesEndRef} />
         </div>
       </div>
+
+      {loading && (
+        <div className="px-6 py-2">
+          <div className="max-w-3xl mx-auto flex items-center gap-2 text-xs text-gray-500 animate-pulse">
+            <div className="w-2 h-2 rounded-full bg-cyan-400" />
+            {activeAgent} Agent is thinking...
+          </div>
+        </div>
+      )}
 
       {/* Input Bar */}
       <div className="px-6 pb-6 pt-2">
@@ -125,10 +188,14 @@ export default function ChatPage() {
               type="text"
               value={inputValue}
               onChange={(e) => setInputValue(e.target.value)}
+              onKeyDown={(e) => { if (e.key === 'Enter') sendMessage(); }}
               placeholder={`Ask ${activeAgent} Agent...`}
               className="flex-1 bg-transparent text-sm text-gray-200 placeholder:text-gray-600 outline-none px-2 py-2"
             />
-            <button className="flex-shrink-0 w-9 h-9 rounded-xl bg-gradient-to-r from-cyan-500 to-cyan-600 flex items-center justify-center text-white shadow-lg shadow-cyan-500/20 hover:shadow-cyan-500/30 transition-all hover:scale-105 active:scale-95">
+            <button
+              onClick={sendMessage}
+              disabled={loading}
+              className="flex-shrink-0 w-9 h-9 rounded-xl bg-gradient-to-r from-cyan-500 to-cyan-600 flex items-center justify-center text-white shadow-lg shadow-cyan-500/20 hover:shadow-cyan-500/30 transition-all hover:scale-105 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed">
               <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M5 12h14M12 5l7 7-7 7" />
               </svg>

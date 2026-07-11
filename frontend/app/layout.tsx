@@ -1,16 +1,16 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
-import Sidebar from "./components/Sidebar";
+import AppShell from "./components/AppShell";
 
 export const metadata: Metadata = {
-  title: "StadiumOS AI — FIFA World Cup 2026",
+  title: "StadiumOS Navigator — AI Stadium Navigation",
   description:
-    "AI Operating System for FIFA World Cup 2026 stadium operations. Real-time crowd management, navigation, and accessibility powered by multi-agent AI.",
+    "AI-powered interactive stadium navigation for FIFA World Cup 2026. 3D Digital Twin with explainable routing.",
   manifest: "/manifest.json",
   appleWebApp: {
     capable: true,
     statusBarStyle: "black-translucent",
-    title: "StadiumOS AI",
+    title: "StadiumOS Navigator",
   },
   other: {
     "mobile-web-app-capable": "yes",
@@ -32,9 +32,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="h-full antialiased">
-      <body className="min-h-full flex bg-[#0a0e1a] text-white font-[Inter,system-ui,sans-serif]">
-        <Sidebar />
-        <main className="flex-1 pb-[70px] md:pb-0 md:ml-[68px]">{children}</main>
+      <body className="min-h-full bg-[#0a0e1a] text-white font-[Inter,system-ui,sans-serif]">
+        <AppShell>{children}</AppShell>
       </body>
     </html>
   );

@@ -1,0 +1,86 @@
+# StadiumOS AI — Stadium Blueprint Configuration
+# Procedural Digital Twin parameters for MetLife Stadium
+# All geometry is derived mathematically from these values.
+# See docs/NAVIGATION_ENGINE_ARCHITECTURE/ for spec.
+
+stadium:
+  name: "MetLife Stadium"
+  origin: [0, 0, 0]  # Center circle (x, y, z)
+
+  levels:
+    count: 4
+    elevation:
+      0: 0.0     # Arrival / Parking / Security
+      1: 8.0     # Lower Bowl
+      2: 16.0    # Middle Bowl
+      3: 24.0    # Upper Bowl
+    labels:
+      0: "Arrival"
+      1: "Lower Bowl"
+      2: "Middle Bowl"
+      3: "Upper Bowl"
+
+  quadrants:
+    count: 4
+    names: ["North", "East", "South", "West"]
+
+  sections:
+    per_level: 12
+    angular_span: 30  # degrees per section (360 / 12)
+
+  rows:
+    per_section: 30
+    radial_spacing: 1.2  # meters between rows
+
+  seats:
+    per_row: 40
+    width: 0.5       # meters per seat
+    depth: 0.8       # meters per seat
+    instanced: true  # use InstancedMesh for rendering
+
+  parking:
+    zones: 12
+    quadrants: ["North", "East", "South", "West"]
+    rows_per_zone: [6, 6, 6, 6]
+    spaces_per_row: [40, 40, 40, 40]
+    pedestrian_exits_per_zone: 2
+
+  gates:
+    primary: 8      # 2 per quadrant
+    secondary: 4    # 1 per quadrant
+    emergency: 8    # 2 per quadrant
+    service: 4      # 1 per quadrant
+
+  facilities:
+    food:
+      every_n_sections: 2  # Food court every 2nd section
+    restroom:
+      every_n_sections: 3  # Restroom every 3rd section
+    medical:
+      per_quadrant: 1      # Medical station per quadrant
+    prayer:
+      per_level: 1        # Prayer room per level
+    charging:
+      every_n_sections: 2 # Charging station every 2nd section
+    merchandise:
+      near_gates: true    # Near primary gates
+    volunteer_desk:
+      per_quadrant: 1     # Volunteer desk per quadrant
+
+  concourse:
+    inner_radius: 60  # meters from center
+    outer_radius: 80  # meters from center
+    width: 20         # meters
+
+  pitch:
+    length: 105       # meters (FIFA standard)
+    width: 68         # meters (FIFA standard)
+
+  road_network:
+    outer_ring_radius: 350  # meters from center
+    quadrants: 4
+
+  # Accessibility
+  accessible_ramps: true
+  elevator_per_quadrant: 2
+  wheelchair_spaces_per_section: 4

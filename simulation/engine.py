@@ -14,11 +14,9 @@ Backup Scenario A: Wheelchair accessibility request during active congestion
 Backup Scenario B: Transportation/shuttle bottleneck at exit gates post-match
 """
 
-import json
 import time
 from dataclasses import dataclass, field, asdict
 from enum import Enum
-from typing import Optional
 
 
 class ScenarioType(str, Enum):

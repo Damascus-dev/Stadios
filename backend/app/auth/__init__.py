@@ -1,0 +1,1 @@
+# StadiumOS AI — Authentication Service

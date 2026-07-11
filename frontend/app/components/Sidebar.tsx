@@ -5,6 +5,13 @@ import { usePathname } from 'next/navigation';
 
 const navItems = [
   {
+    href: '/stadium',
+    label: 'Stadium',
+    icon: '◈',
+    svgPath: 'M3 21l18 0M9 8h1m-1 4h1m4-4h1m-1 4h1M5 21V5a2 2 0 012-2h10a2 2 0 012 2v16',
+    svgFilled: 'M5 21h14a1 1 0 001-1V5a2 2 0 00-2-2H6a2 2 0 00-2 2v15a1 1 0 001 1zm3-8h1m4 0h1m-6-4h1m4 0h1',
+  },
+  {
     href: '/dashboard',
     label: 'Dashboard',
     icon: '◫',

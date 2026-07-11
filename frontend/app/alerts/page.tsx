@@ -1,8 +1,18 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { getAlerts, type AlertItem } from '@/lib/api';
 
 type Severity = 'critical' | 'high' | 'medium' | 'low';
+
+function formatTimestamp(iso: string): string {
+  const d = new Date(iso);
+  const now = new Date();
+  const diff = Math.floor((now.getTime() - d.getTime()) / 1000);
+  if (diff < 60) return `${diff}s ago`;
+  if (diff < 3600) return `${Math.floor(diff / 60)}m ago`;
+  return `${Math.floor(diff / 3600)}h ago`;
+}
 
 interface Alert {
   id: string;
@@ -15,7 +25,7 @@ interface Alert {
   recommendedAction: string;
 }
 
-const mockAlerts: Alert[] = [
+const fallbackAlerts: Alert[] = [
   {
     id: 'INC-001',
     severity: 'critical',
@@ -98,18 +108,40 @@ const severityConfig: Record<Severity, { badge: string; border: string; dot: str
 export default function AlertsPage() {
   const [filter, setFilter] = useState<'all' | 'active' | 'resolved'>('all');
   const [severityFilter, setSeverityFilter] = useState<'all' | Severity>('all');
+  const [alerts, setAlerts] = useState<Alert[]>(fallbackAlerts);
 
-  const filtered = mockAlerts.filter((a) => {
+  useEffect(() => {
+    getAlerts()
+      .then((apiAlerts) => {
+        if (apiAlerts?.length) {
+          setAlerts(apiAlerts.map((a: AlertItem) => ({
+            id: a.id,
+            severity: a.severity as Severity,
+            title: a.title || a.message,
+            description: a.message,
+            zone: a.zone,
+            time: formatTimestamp(a.timestamp),
+            status: a.acknowledged === false ? 'active' : 'resolved',
+            recommendedAction: a.recommended_action || '',
+          })));
+        }
+      })
+      .catch(() => {
+        // fallback to mock data
+      });
+  }, []);
+
+  const filtered = alerts.filter((a) => {
     if (filter !== 'all' && a.status !== filter) return false;
     if (severityFilter !== 'all' && a.severity !== severityFilter) return false;
     return true;
   });
 
-  const activeCount = mockAlerts.filter((a) => a.status === 'active').length;
-  const resolvedCount = mockAlerts.filter((a) => a.status === 'resolved').length;
+  const activeCount = alerts.filter((a) => a.status === 'active').length;
+  const resolvedCount = alerts.filter((a) => a.status === 'resolved').length;
 
   return (
-    <div className="ml-[68px] min-h-screen bg-gradient-mesh bg-grid-pattern">
+    <div className="md:ml-[68px] min-h-screen bg-gradient-mesh bg-grid-pattern">
       {/* Header */}
       <header className="sticky top-0 z-40 glass-panel border-b border-white/[0.06] px-6 py-3 flex items-center justify-between">
         <div>
@@ -130,7 +162,7 @@ export default function AlertsPage() {
             <p className="text-xs text-gray-500 mt-1 uppercase tracking-wider">Resolved</p>
           </div>
           <div className="glass-card p-4 text-center">
-            <p className="text-3xl font-bold text-white">{mockAlerts.length}</p>
+            <p className="text-3xl font-bold text-white">{alerts.length}</p>
             <p className="text-xs text-gray-500 mt-1 uppercase tracking-wider">Total</p>
           </div>
         </div>
