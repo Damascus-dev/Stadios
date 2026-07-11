@@ -130,7 +130,20 @@ export default function DashboardPage() {
     );
   }
 
-  const d = data!;
+  if (!data) {
+    return (
+      <div className="md:ml-[68px] min-h-screen bg-gradient-mesh bg-grid-pattern flex items-center justify-center">
+        <div className="text-center">
+          <div className="w-12 h-12 rounded-2xl bg-rose-500/10 border border-rose-500/20 flex items-center justify-center mx-auto mb-4">
+            <span className="text-xl">{'\u26A0'}</span>
+          </div>
+          <p className="text-sm text-gray-400">Dashboard data unavailable</p>
+        </div>
+      </div>
+    );
+  }
+
+  const d = data;
   const zones = d.crowd_heat?.zones || [];
   const alerts = d.active_alerts?.alerts || [];
   const recs = d.ai_recommendations || [];

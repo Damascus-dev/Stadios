@@ -1,5 +1,9 @@
 export const API_BASE = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
 
+if (typeof window !== "undefined") {
+  console.log("API_BASE:", API_BASE);
+}
+
 export interface AgentQuery {
   query: string;
   agent_type: string;
