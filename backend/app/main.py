@@ -15,10 +15,14 @@ print(f"LLM Provider: {os.getenv('LLM_PROVIDER', 'deepseek')}")
 print(f"DeepSeek configured: {bool(os.getenv('DEEPSEEK_API_KEY'))}")
 print(f"Gemini configured: {bool(os.getenv('GEMINI_API_KEY'))}")
 
+is_prod = os.getenv("RENDER", "") or os.getenv("PRODUCTION", "")
+
 app = FastAPI(
     title="StadiumOS AI",
     description="AI Operating System for FIFA World Cup 2026 Stadium Operations",
     version="0.1.0",
+    docs_url="/dev/docs" if is_prod else "/docs",
+    redoc_url="/dev/redoc" if is_prod else "/redoc",
 )
 
 # CORS
